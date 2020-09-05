@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -28,3 +29,6 @@ void signInSilent() async {
     print(e);
   }
 }
+
+TextStyle txt = new TextStyle(fontSize: 18);
+TextStyle ttl = new TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
