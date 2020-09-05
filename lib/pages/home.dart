@@ -52,7 +52,10 @@ class _HomePageState extends State<HomePage> {
         body: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: double.infinity),
           child: Container(
-            color: Colors.grey[300],
+            decoration: new BoxDecoration(
+                image: new DecorationImage(
+                    image: new AssetImage("assets/other.png"),
+                    fit: BoxFit.cover)),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -60,119 +63,120 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            "Hi there, ${currentUser.displayName}! How are you feeling today?",
-                            style: TextStyle(fontSize: 22),
+                    child: Card(
+                      color: Colors.grey[100],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              "Hi there, ${currentUser.displayName}! How are you feeling today?",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.sentiment_very_satisfied,
-                                      color: Colors.black,
-                                    ),
-                                    iconSize: 35,
-                                    tooltip: "Happy",
-                                    onPressed: () {
-                                      setState(() {
-                                        mood = "Happy";
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    "Happy",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  IconButton(
+                          Container(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    IconButton(
                                       icon: Icon(
-                                        Icons.sentiment_dissatisfied,
-                                        color: Colors.black,
+                                        Icons.sentiment_very_satisfied,
+                                        color: iconColor,
                                       ),
                                       iconSize: 35,
-                                      tooltip: "Stressed",
+                                      tooltip: "Happy",
                                       onPressed: () {
                                         setState(() {
-                                          mood = "Stressed";
+                                          mood = "Happy";
                                         });
-                                      }),
-                                  Text(
-                                    "Stressed",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.sentiment_neutral,
-                                      color: Colors.black,
+                                      },
                                     ),
-                                    iconSize: 35,
-                                    tooltip: "Bored",
-                                    onPressed: () {
-                                      setState(() {
-                                        mood = "Bored";
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    "Bored",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.sentiment_very_dissatisfied,
-                                      color: Colors.black,
+                                    Text(
+                                      "Happy",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                        icon: Icon(
+                                          Icons.sentiment_dissatisfied,
+                                          color: iconColor,
+                                        ),
+                                        iconSize: 35,
+                                        tooltip: "Stressed",
+                                        onPressed: () {
+                                          setState(() {
+                                            mood = "Stressed";
+                                          });
+                                        }),
+                                    Text(
+                                      "Stressed",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.sentiment_neutral,
+                                        color: iconColor,
+                                      ),
+                                      iconSize: 35,
+                                      tooltip: "Bored",
+                                      onPressed: () {
+                                        setState(() {
+                                          mood = "Bored";
+                                        });
+                                      },
                                     ),
-                                    iconSize: 35,
-                                    tooltip: "Depressed",
-                                    onPressed: () {
-                                      setState(() {
-                                        mood = "Depressed";
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    "Depressed",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                    Text(
+                                      "Bored",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.sentiment_very_dissatisfied,
+                                        color: iconColor,
+                                      ),
+                                      iconSize: 35,
+                                      tooltip: "Depressed",
+                                      onPressed: () {
+                                        setState(() {
+                                          mood = "Depressed";
+                                        });
+                                      },
+                                    ),
+                                    Text(
+                                      "Depressed",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   (mood == null)
@@ -181,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.white),
+                              color: Colors.grey[150]),
                           child: Text(
                             "select option",
                             style: TextStyle(fontSize: 15, color: Colors.grey),
@@ -199,24 +203,29 @@ class _HomePageState extends State<HomePage> {
                                   minWidth: double.infinity),
                               child: Column(
                                 children: [
-                                  Container(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          documentSnapshot.data()['title'],
-                                          style: ttl,
-                                        ),
-                                        Text(
-                                          documentSnapshot.data()['text'],
-                                          style: txt,
-                                        ),
-                                      ],
-                                    ),
-                                    padding: EdgeInsets.all(14),
-                                    margin: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
+                                  Card(
+                                    margin: EdgeInsets.all(10),
+                                    color: Colors.grey[100],
+                                    child: Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            documentSnapshot.data()['title'],
+                                            style: ttl,
+                                          ),
+                                          Text(
+                                            documentSnapshot.data()['text'],
+                                            style: txt,
+                                          ),
+                                        ],
+                                      ),
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
-                                        color: Colors.white),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ))

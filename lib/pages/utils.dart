@@ -1,7 +1,7 @@
 import 'dart:math';
-import 'package:flutter/rendering.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 Random random = new Random();
 
@@ -31,4 +31,5 @@ void signInSilent() async {
 }
 
 TextStyle txt = new TextStyle(fontSize: 18);
-TextStyle ttl = new TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
+TextStyle ttl = new TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+Color iconColor = Colors.red;
