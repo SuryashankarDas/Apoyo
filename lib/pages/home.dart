@@ -43,7 +43,11 @@ class _HomePageState extends State<HomePage> {
     }
     return Scaffold(
         appBar: AppBar(
-          title: Text("My application"),
+          title: Text(
+            "Apoyo",
+            style: TextStyle(fontSize: 24),
+          ),
+          centerTitle: true,
         ),
         body: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: double.infinity),
