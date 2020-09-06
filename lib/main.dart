@@ -47,7 +47,8 @@ class _AppState extends State<App> {
       print("error");
     }
     return MaterialApp(
-        theme: ThemeData(primaryColor: Colors.red, accentColor: Colors.red),
+        theme:
+            ThemeData(primaryColor: Colors.red[700], accentColor: Colors.red),
         home: (!_initialized || currentUser == null)
             ? Scaffold(
                 body: Container(

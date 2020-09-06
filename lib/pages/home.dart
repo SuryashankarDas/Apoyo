@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/pages/heartrate.dart';
 import 'package:my_app/pages/utils.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +13,7 @@ class _HomePageState extends State<HomePage> {
   String mood, prev;
   bool _isLoaded;
   DocumentSnapshot documentSnapshot;
+  DocumentSnapshot foodSnapshot;
 
   @override
   void initState() {
@@ -26,6 +28,11 @@ class _HomePageState extends State<HomePage> {
         textColor: Colors.white,
         fontSize: 12.0);
     super.initState();
+  }
+
+  Future<void> getFood() async {
+    foodSnapshot =
+        await firestore.collection("food").doc("${random.nextInt(1)}").get();
   }
 
   @override
@@ -66,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                           child: Text(
                             "Hi there, ${currentUser.displayName}! How are you feeling today?",
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 22, fontWeight: FontWeight.w500),
                           ),
                         ),
                         Container(
@@ -88,6 +95,7 @@ class _HomePageState extends State<HomePage> {
                                           .collection("Happy")
                                           .doc("${random.nextInt(2)}")
                                           .get();
+                                      await getFood();
                                       setState(() {
                                         mood = "Happy";
                                         _isLoaded = true;
@@ -116,6 +124,7 @@ class _HomePageState extends State<HomePage> {
                                           .collection("Stressed")
                                           .doc("${random.nextInt(2)}")
                                           .get();
+                                      await getFood();
                                       setState(() {
                                         mood = "Stressed";
                                         _isLoaded = true;
@@ -144,6 +153,7 @@ class _HomePageState extends State<HomePage> {
                                           .collection("Bored")
                                           .doc("${random.nextInt(2)}")
                                           .get();
+                                      await getFood();
                                       setState(() {
                                         mood = "Bored";
                                         _isLoaded = true;
@@ -172,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                                           .collection("Depressed")
                                           .doc("${random.nextInt(2)}")
                                           .get();
+                                      await getFood();
                                       setState(() {
                                         mood = "Depressed";
                                         _isLoaded = true;
@@ -214,13 +225,12 @@ class _HomePageState extends State<HomePage> {
                             child: Text("loading"),
                             color: Colors.white,
                           )
-                        : ConstrainedBox(
-                            constraints:
-                                const BoxConstraints(minWidth: double.infinity),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.all(8),
+                        : Column(
+                            children: [
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                    minWidth: double.infinity),
+                                child: Container(
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       new BoxShadow(
@@ -229,41 +239,149 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ],
                                   ),
+                                  margin: EdgeInsets.all(8),
                                   child: Card(
                                     child: Container(
                                       padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            documentSnapshot.data()['title'],
-                                            style: ttl,
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 0, vertical: 5),
-                                            child: Image.network(
-                                              documentSnapshot.data()['img'],
-                                            ),
-                                          ),
-                                          Text(
-                                            documentSnapshot.data()['text'],
-                                            style: txt,
-                                          ),
-                                        ],
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
+                                      child: Text(
+                                        "Are you feeling ${mood}? Apoyo is here to enhance your current state of mind!",
+                                        style: txt,
                                       ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 70,
-                                )
-                              ],
-                            ))
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    new BoxShadow(
+                                      color: Colors.red,
+                                      blurRadius: 20.0,
+                                    ),
+                                  ],
+                                ),
+                                child: Card(
+                                  child: Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text(
+                                            documentSnapshot.data()['title'],
+                                            style: ttl,
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 0, vertical: 5),
+                                          child: Image.network(
+                                            documentSnapshot.data()['img'],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.all(10),
+                                          child: Text(
+                                            documentSnapshot.data()['text'],
+                                            style: txt,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   borderRadius: BorderRadius.circular(20),
+                                    // ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    new BoxShadow(
+                                      color: Colors.red,
+                                      blurRadius: 20.0,
+                                    ),
+                                  ],
+                                ),
+                                child: Card(
+                                  child: Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Text(
+                                            foodSnapshot.data()['title'],
+                                            style: ttl,
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 0, vertical: 5),
+                                          child: Image.network(
+                                            foodSnapshot.data()['img'],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.all(10),
+                                          child: Text(
+                                            foodSnapshot.data()['text'],
+                                            style: txt,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   borderRadius: BorderRadius.circular(20),
+                                    // ),
+                                  ),
+                                ),
+                              ),
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                    minWidth: double.infinity),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      new BoxShadow(
+                                        color: Colors.red,
+                                        blurRadius: 20.0,
+                                      ),
+                                    ],
+                                  ),
+                                  margin: EdgeInsets.all(8),
+                                  child: Card(
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HeartRatePage()),
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        child: Text(
+                                          "Want to get your heart rate measured? Click here!",
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 70,
+                              )
+                            ],
+                          )
               ],
             ),
           ),
