@@ -28,18 +28,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  void getSnapshot() async {
-    documentSnapshot = await firestore.collection(mood).doc("${0}").get();
-    setState(() {
-      _isLoaded = true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // if (mood != null && mood != prev) {
-    //   getSnapshot();
-    // }
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -58,6 +48,14 @@ class _HomePageState extends State<HomePage> {
             child: ListView(
               children: <Widget>[
                 Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      new BoxShadow(
+                        color: Colors.red,
+                        blurRadius: 20.0,
+                      ),
+                    ],
+                  ),
                   margin: EdgeInsets.all(8),
                   child: Card(
                     child: Column(
@@ -221,29 +219,49 @@ class _HomePageState extends State<HomePage> {
                                 const BoxConstraints(minWidth: double.infinity),
                             child: Column(
                               children: [
-                                Card(
-                                  margin: EdgeInsets.all(10),
-                                  child: Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          documentSnapshot.data()['title'],
-                                          style: ttl,
-                                        ),
-                                        Text(
-                                          documentSnapshot.data()['text'],
-                                          style: txt,
-                                        ),
-                                      ],
-                                    ),
-                                    padding: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
+                                Container(
+                                  margin: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      new BoxShadow(
+                                        color: Colors.red,
+                                        blurRadius: 20.0,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Card(
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            documentSnapshot.data()['title'],
+                                            style: ttl,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 0, vertical: 5),
+                                            child: Image.network(
+                                              documentSnapshot.data()['img'],
+                                            ),
+                                          ),
+                                          Text(
+                                            documentSnapshot.data()['text'],
+                                            style: txt,
+                                          ),
+                                        ],
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
                                     ),
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 70,
+                                )
                               ],
                             ))
               ],

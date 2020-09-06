@@ -33,7 +33,7 @@ dependencies:
   google_sign_in:
   cloud_firestore:
   fluttertoast: ^7.0.4
-  line_awesome_icons: ^1.0.4+2
+  google_fonts: ^1.1.0
 
 dev_dependencies:
   flutter_test:
