@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app/pages/heartrate.dart';
-import 'package:my_app/pages/utils.dart';
+import 'heartrate.dart';
+import 'utils.dart';
 
 class HomePage extends StatefulWidget {
   @override

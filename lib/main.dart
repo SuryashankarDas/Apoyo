@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:my_app/pages/home.dart';
-import 'package:my_app/pages/utils.dart';
+import 'package:Apoyo/pages/home.dart';
+import 'package:Apoyo/pages/utils.dart';
 
 void main() {
   runApp(App());
