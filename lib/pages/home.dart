@@ -9,14 +9,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String mood;
+  String mood, prev;
   bool _isLoaded;
   DocumentSnapshot documentSnapshot;
 
   @override
   void initState() {
     _isLoaded = false;
-    mood = null;
+    mood = prev = null;
     Fluttertoast.showToast(
         msg: "Logged in as ${currentUser.email}",
         toastLength: Toast.LENGTH_LONG,
@@ -29,8 +29,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getSnapshot() async {
-    documentSnapshot =
-        await firestore.collection(mood).doc("${random.nextInt(1)}").get();
+    documentSnapshot = await firestore.collection(mood).doc("${0}").get();
     setState(() {
       _isLoaded = true;
     });
@@ -38,9 +37,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (mood != null) {
-      getSnapshot();
-    }
+    // if (mood != null && mood != prev) {
+    //   getSnapshot();
+    // }
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -54,183 +53,200 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             decoration: new BoxDecoration(
                 image: new DecorationImage(
-                    image: new AssetImage("assets/other.png"),
+                    image: new AssetImage("assets/other.jpeg"),
                     fit: BoxFit.cover)),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    child: Card(
-                      color: Colors.grey[100],
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              "Hi there, ${currentUser.displayName}! How are you feeling today?",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
+            child: ListView(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(8),
+                  child: Card(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            "Hi there, ${currentUser.displayName}! How are you feeling today?",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.sentiment_very_satisfied,
-                                        color: iconColor,
-                                      ),
-                                      iconSize: 35,
-                                      tooltip: "Happy",
-                                      onPressed: () {
-                                        setState(() {
-                                          mood = "Happy";
-                                        });
-                                      },
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Column(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.sentiment_very_satisfied,
+                                      color: iconColor,
                                     ),
-                                    Text(
-                                      "Happy",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                        icon: Icon(
-                                          Icons.sentiment_dissatisfied,
-                                          color: iconColor,
-                                        ),
-                                        iconSize: 35,
-                                        tooltip: "Stressed",
-                                        onPressed: () {
-                                          setState(() {
-                                            mood = "Stressed";
-                                          });
-                                        }),
-                                    Text(
-                                      "Stressed",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.sentiment_neutral,
-                                        color: iconColor,
-                                      ),
-                                      iconSize: 35,
-                                      tooltip: "Bored",
-                                      onPressed: () {
-                                        setState(() {
-                                          mood = "Bored";
-                                        });
-                                      },
+                                    iconSize: 35,
+                                    tooltip: "Happy",
+                                    onPressed: () async {
+                                      documentSnapshot = await firestore
+                                          .collection("Happy")
+                                          .doc("${random.nextInt(2)}")
+                                          .get();
+                                      setState(() {
+                                        mood = "Happy";
+                                        _isLoaded = true;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    "Happy",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.sentiment_dissatisfied,
+                                      color: iconColor,
                                     ),
-                                    Text(
-                                      "Bored",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.sentiment_very_dissatisfied,
-                                        color: iconColor,
-                                      ),
-                                      iconSize: 35,
-                                      tooltip: "Depressed",
-                                      onPressed: () {
-                                        setState(() {
-                                          mood = "Depressed";
-                                        });
-                                      },
+                                    iconSize: 35,
+                                    tooltip: "Stressed",
+                                    onPressed: () async {
+                                      documentSnapshot = await firestore
+                                          .collection("Stressed")
+                                          .doc("${random.nextInt(2)}")
+                                          .get();
+                                      setState(() {
+                                        mood = "Stressed";
+                                        _isLoaded = true;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    "Stressed",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.sentiment_neutral,
+                                      color: iconColor,
                                     ),
-                                    Text(
-                                      "Depressed",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                                    iconSize: 35,
+                                    tooltip: "Bored",
+                                    onPressed: () async {
+                                      documentSnapshot = await firestore
+                                          .collection("Bored")
+                                          .doc("${random.nextInt(2)}")
+                                          .get();
+                                      setState(() {
+                                        mood = "Bored";
+                                        _isLoaded = true;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    "Bored",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.sentiment_very_dissatisfied,
+                                      color: iconColor,
+                                    ),
+                                    iconSize: 35,
+                                    tooltip: "Depressed",
+                                    onPressed: () async {
+                                      documentSnapshot = await firestore
+                                          .collection("Depressed")
+                                          .doc("${random.nextInt(2)}")
+                                          .get();
+                                      setState(() {
+                                        mood = "Depressed";
+                                        _isLoaded = true;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    "Depressed",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  (mood == null)
-                      ? Container(
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.grey[150]),
-                          child: Text(
-                            "select option",
-                            style: TextStyle(fontSize: 15, color: Colors.grey),
-                          ))
-                      : (!_isLoaded)
-                          ? Container(
-                              padding: EdgeInsets.all(10),
-                              margin: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white),
-                              child: Text("loading"))
-                          : ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                  minWidth: double.infinity),
-                              child: Column(
-                                children: [
-                                  Card(
-                                    margin: EdgeInsets.all(10),
-                                    color: Colors.grey[100],
-                                    child: Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            documentSnapshot.data()['title'],
-                                            style: ttl,
-                                          ),
-                                          Text(
-                                            documentSnapshot.data()['text'],
-                                            style: txt,
-                                          ),
-                                        ],
-                                      ),
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
+                ),
+                (mood == null)
+                    ? Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          "select option",
+                          style: TextStyle(fontSize: 15, color: Colors.white),
+                        ))
+                    : (!_isLoaded)
+                        ? Container(
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white),
+                            child: Text("loading"),
+                            color: Colors.white,
+                          )
+                        : ConstrainedBox(
+                            constraints:
+                                const BoxConstraints(minWidth: double.infinity),
+                            child: Column(
+                              children: [
+                                Card(
+                                  margin: EdgeInsets.all(10),
+                                  child: Container(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          documentSnapshot.data()['title'],
+                                          style: ttl,
+                                        ),
+                                        Text(
+                                          documentSnapshot.data()['text'],
+                                          style: txt,
+                                        ),
+                                      ],
+                                    ),
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                   ),
-                                ],
-                              ))
-                ],
-              ),
+                                ),
+                              ],
+                            ))
+              ],
             ),
           ),
         ));

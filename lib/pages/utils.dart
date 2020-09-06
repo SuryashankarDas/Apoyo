@@ -23,11 +23,11 @@ Future<void> handleSignIn() async {
 }
 
 void signInSilent() async {
-  try {
-    await googleSignIn.signInSilently(suppressErrors: false);
-  } catch (e) {
-    print(e);
-  }
+  await googleSignIn.isSignedIn().then((isSignedIn) async {
+    if (isSignedIn) {
+      await googleSignIn.signInSilently();
+    }
+  });
 }
 
 TextStyle txt = new TextStyle(fontSize: 18);
