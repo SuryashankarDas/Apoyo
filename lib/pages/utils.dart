@@ -32,6 +32,9 @@ void signInSilent() async {
 }
 
 TextStyle txt = GoogleFonts.notoSerif(textStyle: TextStyle(fontSize: 19));
+TextStyle mtxt = GoogleFonts.notoSerif(
+    textStyle: TextStyle(fontSize: 19, fontWeight: FontWeight.w600));
+
 TextStyle ttl = GoogleFonts.notoSerif(
     textStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.bold));
 Color iconColor = Colors.red;

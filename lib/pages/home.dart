@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getFood() async {
     foodSnapshot =
-        await firestore.collection("food").doc("${random.nextInt(1)}").get();
+        await firestore.collection("food").doc("${random.nextInt(2)}").get();
   }
 
   @override
@@ -245,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                                       padding: EdgeInsets.all(10),
                                       child: Text(
                                         "Are you feeling ${mood}? Apoyo is here to enhance your current state of mind!",
-                                        style: txt,
+                                        style: mtxt,
                                       ),
                                     ),
                                   ),
@@ -293,6 +293,30 @@ class _HomePageState extends State<HomePage> {
                                     // decoration: BoxDecoration(
                                     //   borderRadius: BorderRadius.circular(20),
                                     // ),
+                                  ),
+                                ),
+                              ),
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                    minWidth: double.infinity),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      new BoxShadow(
+                                        color: Colors.red,
+                                        blurRadius: 20.0,
+                                      ),
+                                    ],
+                                  ),
+                                  margin: EdgeInsets.all(8),
+                                  child: Card(
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        "Here is something to have, just for you!",
+                                        style: mtxt,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
